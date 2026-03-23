@@ -1,7 +1,8 @@
 import { Router } from "express";
+import { categoryRouter } from "../../modules/category/category.router";
 
 const router = Router();
 
-// router.use("/auth", authRouter);
+router.use("/category", categoryRouter);
 
 export const IndexRoutes = router;
