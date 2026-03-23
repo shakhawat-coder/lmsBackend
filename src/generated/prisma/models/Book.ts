@@ -281,6 +281,7 @@ export type BookWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Book"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Book"> | Date | string
   category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
+  borrowings?: Prisma.BorrowingListRelationFilter
 }
 
 export type BookOrderByWithRelationInput = {
@@ -298,6 +299,7 @@ export type BookOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   category?: Prisma.CategoryOrderByWithRelationInput
+  borrowings?: Prisma.BorrowingOrderByRelationAggregateInput
 }
 
 export type BookWhereUniqueInput = Prisma.AtLeast<{
@@ -318,6 +320,7 @@ export type BookWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Book"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Book"> | Date | string
   category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
+  borrowings?: Prisma.BorrowingListRelationFilter
 }, "id">
 
 export type BookOrderByWithAggregationInput = {
@@ -374,6 +377,7 @@ export type BookCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   category: Prisma.CategoryCreateNestedOneWithoutBooksInput
+  borrowings?: Prisma.BorrowingCreateNestedManyWithoutBookInput
 }
 
 export type BookUncheckedCreateInput = {
@@ -390,6 +394,7 @@ export type BookUncheckedCreateInput = {
   categoryId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  borrowings?: Prisma.BorrowingUncheckedCreateNestedManyWithoutBookInput
 }
 
 export type BookUpdateInput = {
@@ -406,6 +411,7 @@ export type BookUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.CategoryUpdateOneRequiredWithoutBooksNestedInput
+  borrowings?: Prisma.BorrowingUpdateManyWithoutBookNestedInput
 }
 
 export type BookUncheckedUpdateInput = {
@@ -422,6 +428,7 @@ export type BookUncheckedUpdateInput = {
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  borrowings?: Prisma.BorrowingUncheckedUpdateManyWithoutBookNestedInput
 }
 
 export type BookCreateManyInput = {
@@ -527,6 +534,11 @@ export type BookSumOrderByAggregateInput = {
   pages?: Prisma.SortOrder
 }
 
+export type BookScalarRelationFilter = {
+  is?: Prisma.BookWhereInput
+  isNot?: Prisma.BookWhereInput
+}
+
 export type BookListRelationFilter = {
   every?: Prisma.BookWhereInput
   some?: Prisma.BookWhereInput
@@ -543,6 +555,20 @@ export type NullableIntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type BookCreateNestedOneWithoutBorrowingsInput = {
+  create?: Prisma.XOR<Prisma.BookCreateWithoutBorrowingsInput, Prisma.BookUncheckedCreateWithoutBorrowingsInput>
+  connectOrCreate?: Prisma.BookCreateOrConnectWithoutBorrowingsInput
+  connect?: Prisma.BookWhereUniqueInput
+}
+
+export type BookUpdateOneRequiredWithoutBorrowingsNestedInput = {
+  create?: Prisma.XOR<Prisma.BookCreateWithoutBorrowingsInput, Prisma.BookUncheckedCreateWithoutBorrowingsInput>
+  connectOrCreate?: Prisma.BookCreateOrConnectWithoutBorrowingsInput
+  upsert?: Prisma.BookUpsertWithoutBorrowingsInput
+  connect?: Prisma.BookWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BookUpdateToOneWithWhereWithoutBorrowingsInput, Prisma.BookUpdateWithoutBorrowingsInput>, Prisma.BookUncheckedUpdateWithoutBorrowingsInput>
 }
 
 export type BookCreateNestedManyWithoutCategoryInput = {
@@ -587,6 +613,86 @@ export type BookUncheckedUpdateManyWithoutCategoryNestedInput = {
   deleteMany?: Prisma.BookScalarWhereInput | Prisma.BookScalarWhereInput[]
 }
 
+export type BookCreateWithoutBorrowingsInput = {
+  id?: string
+  title: string
+  author: string
+  coverImage?: string | null
+  availability?: boolean
+  isbn?: string | null
+  language?: string | null
+  year?: string | null
+  pages?: number | null
+  description?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  category: Prisma.CategoryCreateNestedOneWithoutBooksInput
+}
+
+export type BookUncheckedCreateWithoutBorrowingsInput = {
+  id?: string
+  title: string
+  author: string
+  coverImage?: string | null
+  availability?: boolean
+  isbn?: string | null
+  language?: string | null
+  year?: string | null
+  pages?: number | null
+  description?: string | null
+  categoryId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BookCreateOrConnectWithoutBorrowingsInput = {
+  where: Prisma.BookWhereUniqueInput
+  create: Prisma.XOR<Prisma.BookCreateWithoutBorrowingsInput, Prisma.BookUncheckedCreateWithoutBorrowingsInput>
+}
+
+export type BookUpsertWithoutBorrowingsInput = {
+  update: Prisma.XOR<Prisma.BookUpdateWithoutBorrowingsInput, Prisma.BookUncheckedUpdateWithoutBorrowingsInput>
+  create: Prisma.XOR<Prisma.BookCreateWithoutBorrowingsInput, Prisma.BookUncheckedCreateWithoutBorrowingsInput>
+  where?: Prisma.BookWhereInput
+}
+
+export type BookUpdateToOneWithWhereWithoutBorrowingsInput = {
+  where?: Prisma.BookWhereInput
+  data: Prisma.XOR<Prisma.BookUpdateWithoutBorrowingsInput, Prisma.BookUncheckedUpdateWithoutBorrowingsInput>
+}
+
+export type BookUpdateWithoutBorrowingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  author?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  availability?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isbn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  category?: Prisma.CategoryUpdateOneRequiredWithoutBooksNestedInput
+}
+
+export type BookUncheckedUpdateWithoutBorrowingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  author?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  availability?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isbn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type BookCreateWithoutCategoryInput = {
   id?: string
   title: string
@@ -600,6 +706,7 @@ export type BookCreateWithoutCategoryInput = {
   description?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  borrowings?: Prisma.BorrowingCreateNestedManyWithoutBookInput
 }
 
 export type BookUncheckedCreateWithoutCategoryInput = {
@@ -615,6 +722,7 @@ export type BookUncheckedCreateWithoutCategoryInput = {
   description?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  borrowings?: Prisma.BorrowingUncheckedCreateNestedManyWithoutBookInput
 }
 
 export type BookCreateOrConnectWithoutCategoryInput = {
@@ -690,6 +798,7 @@ export type BookUpdateWithoutCategoryInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  borrowings?: Prisma.BorrowingUpdateManyWithoutBookNestedInput
 }
 
 export type BookUncheckedUpdateWithoutCategoryInput = {
@@ -705,6 +814,7 @@ export type BookUncheckedUpdateWithoutCategoryInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  borrowings?: Prisma.BorrowingUncheckedUpdateManyWithoutBookNestedInput
 }
 
 export type BookUncheckedUpdateManyWithoutCategoryInput = {
@@ -723,6 +833,35 @@ export type BookUncheckedUpdateManyWithoutCategoryInput = {
 }
 
 
+/**
+ * Count Type BookCountOutputType
+ */
+
+export type BookCountOutputType = {
+  borrowings: number
+}
+
+export type BookCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  borrowings?: boolean | BookCountOutputTypeCountBorrowingsArgs
+}
+
+/**
+ * BookCountOutputType without action
+ */
+export type BookCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BookCountOutputType
+   */
+  select?: Prisma.BookCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * BookCountOutputType without action
+ */
+export type BookCountOutputTypeCountBorrowingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BorrowingWhereInput
+}
+
 
 export type BookSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -739,6 +878,8 @@ export type BookSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  borrowings?: boolean | Prisma.Book$borrowingsArgs<ExtArgs>
+  _count?: boolean | Prisma.BookCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["book"]>
 
 export type BookSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -794,6 +935,8 @@ export type BookSelectScalar = {
 export type BookOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "author" | "coverImage" | "availability" | "isbn" | "language" | "year" | "pages" | "description" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["book"]>
 export type BookInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  borrowings?: boolean | Prisma.Book$borrowingsArgs<ExtArgs>
+  _count?: boolean | Prisma.BookCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BookIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
@@ -806,6 +949,7 @@ export type $BookPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Book"
   objects: {
     category: Prisma.$CategoryPayload<ExtArgs>
+    borrowings: Prisma.$BorrowingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1216,6 +1360,7 @@ readonly fields: BookFieldRefs;
 export interface Prisma__BookClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   category<T extends Prisma.CategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoryClient<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  borrowings<T extends Prisma.Book$borrowingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Book$borrowingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BorrowingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1656,6 +1801,30 @@ export type BookDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Books to delete.
    */
   limit?: number
+}
+
+/**
+ * Book.borrowings
+ */
+export type Book$borrowingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Borrowing
+   */
+  select?: Prisma.BorrowingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Borrowing
+   */
+  omit?: Prisma.BorrowingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BorrowingInclude<ExtArgs> | null
+  where?: Prisma.BorrowingWhereInput
+  orderBy?: Prisma.BorrowingOrderByWithRelationInput | Prisma.BorrowingOrderByWithRelationInput[]
+  cursor?: Prisma.BorrowingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BorrowingScalarFieldEnum | Prisma.BorrowingScalarFieldEnum[]
 }
 
 /**

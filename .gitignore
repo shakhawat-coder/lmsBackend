@@ -1,5 +1,20 @@
 node_modules
 # Keep environment variables out of version control
 .env
+.env.*
+!.env.example
 
+# Prisma generated client
+/generated/prisma
+src/generated/prisma
+
+dist 
+
+prisma/migrations
+
+.vercel
+
+render.yaml
+
+/src/generated/prisma
 /generated/prisma

@@ -11,7 +11,8 @@ model Book {
   description  String?
   
   categoryId   String
-  category     Category @relation(fields: [categoryId], references: [id])
+  category     Category    @relation(fields: [categoryId], references: [id])
+  borrowings   Borrowing[]
 
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

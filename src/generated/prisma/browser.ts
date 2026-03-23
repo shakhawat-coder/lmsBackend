@@ -43,7 +43,22 @@ export type Verification = Prisma.VerificationModel
  */
 export type Book = Prisma.BookModel
 /**
+ * Model Borrowing
+ * 
+ */
+export type Borrowing = Prisma.BorrowingModel
+/**
  * Model Category
  * 
  */
 export type Category = Prisma.CategoryModel
+/**
+ * Model Membership
+ * 
+ */
+export type Membership = Prisma.MembershipModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel
