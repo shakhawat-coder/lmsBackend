@@ -1,13 +1,21 @@
 model User {
-  id            String    @id
+  id            String       @id
   name          String
   email         String
-  emailVerified Boolean   @default(false)
+  emailVerified Boolean      @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  role          ROLE         @default(USER)
+  status        USER_STATUS  @default(ACTIVE)
+  phoneNumber   String?
+  address       String?
+  isDeleted     Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
   sessions      Session[]
   accounts      Account[]
+  memberships   Membership[]
+  payments      Payment[]
+  borrowings    Borrowing[]
 
   @@unique([email])
   @@map("user")
@@ -61,6 +69,17 @@ model Verification {
   @@map("verification")
 }
 
+enum ROLE {
+  USER
+  ADMIN
+  SUPERADMIN
+}
+
+enum USER_STATUS {
+  ACTIVE
+  BLOCKED
+}
+
 model Book {
   id           String  @id @default(uuid())
   title        String
@@ -74,12 +93,35 @@ model Book {
   description  String?
 
   categoryId String
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category    @relation(fields: [categoryId], references: [id])
+  borrowings Borrowing[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("books")
+}
+
+model Borrowing {
+  id         String          @id @default(uuid())
+  userId     String
+  user       User            @relation(fields: [userId], references: [id])
+  bookId     String
+  book       Book            @relation(fields: [bookId], references: [id])
+  borrowDate DateTime        @default(now())
+  dueDate    DateTime
+  returnDate DateTime?
+  status     BorrowingStatus @default(BORROWED)
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+
+  @@map("borrowings")
+}
+
+enum BorrowingStatus {
+  BORROWED
+  RETURNED
+  OVERDUE
 }
 
 model Category {
@@ -91,6 +133,55 @@ model Category {
   updatedAt DateTime @updatedAt
 
   @@map("categories")
+}
+
+model Membership {
+  id        String           @id @default(uuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id])
+  type      MembershipType   @default(BASIC)
+  status    MembershipStatus @default(ACTIVE)
+  startDate DateTime         @default(now())
+  endDate   DateTime?
+  payments  Payment[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  @@map("memberships")
+}
+
+enum MembershipType {
+  BASIC
+  SILVER
+  GOLD
+}
+
+enum MembershipStatus {
+  ACTIVE
+  INACTIVE
+  EXPIRED
+}
+
+model Payment {
+  id            String        @id @default(uuid())
+  userId        String
+  user          User          @relation(fields: [userId], references: [id])
+  membershipId  String?
+  membership    Membership?   @relation(fields: [membershipId], references: [id])
+  amount        Float
+  currency      String        @default("BDT")
+  transactionId String?       @unique
+  status        PaymentStatus @default(UNPAID)
+  paymentMethod String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@map("payments")
+}
+
+enum PaymentStatus {
+  PAID
+  UNPAID
 }
 
 // This is your Prisma schema file,

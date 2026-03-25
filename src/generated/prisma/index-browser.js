@@ -126,6 +126,11 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
+  role: 'role',
+  status: 'status',
+  phoneNumber: 'phoneNumber',
+  address: 'address',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -182,10 +187,46 @@ exports.Prisma.BookScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BorrowingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  bookId: 'bookId',
+  borrowDate: 'borrowDate',
+  dueDate: 'dueDate',
+  returnDate: 'returnDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
   image: 'image',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MembershipScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  status: 'status',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PaymentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  membershipId: 'membershipId',
+  amount: 'amount',
+  currency: 'currency',
+  transactionId: 'transactionId',
+  status: 'status',
+  paymentMethod: 'paymentMethod',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -204,7 +245,39 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.ROLE = exports.$Enums.ROLE = {
+  USER: 'USER',
+  ADMIN: 'ADMIN',
+  SUPERADMIN: 'SUPERADMIN'
+};
 
+exports.USER_STATUS = exports.$Enums.USER_STATUS = {
+  ACTIVE: 'ACTIVE',
+  BLOCKED: 'BLOCKED'
+};
+
+exports.BorrowingStatus = exports.$Enums.BorrowingStatus = {
+  BORROWED: 'BORROWED',
+  RETURNED: 'RETURNED',
+  OVERDUE: 'OVERDUE'
+};
+
+exports.MembershipType = exports.$Enums.MembershipType = {
+  BASIC: 'BASIC',
+  SILVER: 'SILVER',
+  GOLD: 'GOLD'
+};
+
+exports.MembershipStatus = exports.$Enums.MembershipStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  EXPIRED: 'EXPIRED'
+};
+
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  PAID: 'PAID',
+  UNPAID: 'UNPAID'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
@@ -212,7 +285,10 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   Book: 'Book',
-  Category: 'Category'
+  Borrowing: 'Borrowing',
+  Category: 'Category',
+  Membership: 'Membership',
+  Payment: 'Payment'
 };
 
 /**
