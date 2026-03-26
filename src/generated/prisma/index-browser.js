@@ -194,6 +194,7 @@ exports.Prisma.BorrowingScalarFieldEnum = {
   borrowDate: 'borrowDate',
   dueDate: 'dueDate',
   returnDate: 'returnDate',
+  fine: 'fine',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

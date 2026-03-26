@@ -7,6 +7,7 @@ model Borrowing {
   borrowDate DateTime        @default(now())
   dueDate    DateTime
   returnDate DateTime?
+  fine       Float           @default(0)
   status     BorrowingStatus @default(BORROWED)
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt

@@ -7631,8 +7631,18 @@ export namespace Prisma {
 
   export type AggregateBorrowing = {
     _count: BorrowingCountAggregateOutputType | null
+    _avg: BorrowingAvgAggregateOutputType | null
+    _sum: BorrowingSumAggregateOutputType | null
     _min: BorrowingMinAggregateOutputType | null
     _max: BorrowingMaxAggregateOutputType | null
+  }
+
+  export type BorrowingAvgAggregateOutputType = {
+    fine: number | null
+  }
+
+  export type BorrowingSumAggregateOutputType = {
+    fine: number | null
   }
 
   export type BorrowingMinAggregateOutputType = {
@@ -7642,6 +7652,7 @@ export namespace Prisma {
     borrowDate: Date | null
     dueDate: Date | null
     returnDate: Date | null
+    fine: number | null
     status: $Enums.BorrowingStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7654,6 +7665,7 @@ export namespace Prisma {
     borrowDate: Date | null
     dueDate: Date | null
     returnDate: Date | null
+    fine: number | null
     status: $Enums.BorrowingStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7666,12 +7678,21 @@ export namespace Prisma {
     borrowDate: number
     dueDate: number
     returnDate: number
+    fine: number
     status: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type BorrowingAvgAggregateInputType = {
+    fine?: true
+  }
+
+  export type BorrowingSumAggregateInputType = {
+    fine?: true
+  }
 
   export type BorrowingMinAggregateInputType = {
     id?: true
@@ -7680,6 +7701,7 @@ export namespace Prisma {
     borrowDate?: true
     dueDate?: true
     returnDate?: true
+    fine?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -7692,6 +7714,7 @@ export namespace Prisma {
     borrowDate?: true
     dueDate?: true
     returnDate?: true
+    fine?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -7704,6 +7727,7 @@ export namespace Prisma {
     borrowDate?: true
     dueDate?: true
     returnDate?: true
+    fine?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -7748,6 +7772,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: BorrowingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BorrowingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: BorrowingMinAggregateInputType
@@ -7778,6 +7814,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: BorrowingCountAggregateInputType | true
+    _avg?: BorrowingAvgAggregateInputType
+    _sum?: BorrowingSumAggregateInputType
     _min?: BorrowingMinAggregateInputType
     _max?: BorrowingMaxAggregateInputType
   }
@@ -7789,10 +7827,13 @@ export namespace Prisma {
     borrowDate: Date
     dueDate: Date
     returnDate: Date | null
+    fine: number
     status: $Enums.BorrowingStatus
     createdAt: Date
     updatedAt: Date
     _count: BorrowingCountAggregateOutputType | null
+    _avg: BorrowingAvgAggregateOutputType | null
+    _sum: BorrowingSumAggregateOutputType | null
     _min: BorrowingMinAggregateOutputType | null
     _max: BorrowingMaxAggregateOutputType | null
   }
@@ -7818,6 +7859,7 @@ export namespace Prisma {
     borrowDate?: boolean
     dueDate?: boolean
     returnDate?: boolean
+    fine?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7832,6 +7874,7 @@ export namespace Prisma {
     borrowDate?: boolean
     dueDate?: boolean
     returnDate?: boolean
+    fine?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7846,6 +7889,7 @@ export namespace Prisma {
     borrowDate?: boolean
     dueDate?: boolean
     returnDate?: boolean
+    fine?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7860,12 +7904,13 @@ export namespace Prisma {
     borrowDate?: boolean
     dueDate?: boolean
     returnDate?: boolean
+    fine?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type BorrowingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "bookId" | "borrowDate" | "dueDate" | "returnDate" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["borrowing"]>
+  export type BorrowingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "bookId" | "borrowDate" | "dueDate" | "returnDate" | "fine" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["borrowing"]>
   export type BorrowingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     book?: boolean | BookDefaultArgs<ExtArgs>
@@ -7892,6 +7937,7 @@ export namespace Prisma {
       borrowDate: Date
       dueDate: Date
       returnDate: Date | null
+      fine: number
       status: $Enums.BorrowingStatus
       createdAt: Date
       updatedAt: Date
@@ -8326,6 +8372,7 @@ export namespace Prisma {
     readonly borrowDate: FieldRef<"Borrowing", 'DateTime'>
     readonly dueDate: FieldRef<"Borrowing", 'DateTime'>
     readonly returnDate: FieldRef<"Borrowing", 'DateTime'>
+    readonly fine: FieldRef<"Borrowing", 'Float'>
     readonly status: FieldRef<"Borrowing", 'BorrowingStatus'>
     readonly createdAt: FieldRef<"Borrowing", 'DateTime'>
     readonly updatedAt: FieldRef<"Borrowing", 'DateTime'>
@@ -12247,6 +12294,7 @@ export namespace Prisma {
     borrowDate: 'borrowDate',
     dueDate: 'dueDate',
     returnDate: 'returnDate',
+    fine: 'fine',
     status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -12403,6 +12451,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
    * Reference to a field of type 'BorrowingStatus'
    */
   export type EnumBorrowingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BorrowingStatus'>
@@ -12441,20 +12503,6 @@ export namespace Prisma {
    * Reference to a field of type 'MembershipStatus[]'
    */
   export type ListEnumMembershipStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MembershipStatus[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -12909,6 +12957,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFilter<"Borrowing"> | Date | string
     dueDate?: DateTimeFilter<"Borrowing"> | Date | string
     returnDate?: DateTimeNullableFilter<"Borrowing"> | Date | string | null
+    fine?: FloatFilter<"Borrowing"> | number
     status?: EnumBorrowingStatusFilter<"Borrowing"> | $Enums.BorrowingStatus
     createdAt?: DateTimeFilter<"Borrowing"> | Date | string
     updatedAt?: DateTimeFilter<"Borrowing"> | Date | string
@@ -12923,6 +12972,7 @@ export namespace Prisma {
     borrowDate?: SortOrder
     dueDate?: SortOrder
     returnDate?: SortOrderInput | SortOrder
+    fine?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12940,6 +12990,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFilter<"Borrowing"> | Date | string
     dueDate?: DateTimeFilter<"Borrowing"> | Date | string
     returnDate?: DateTimeNullableFilter<"Borrowing"> | Date | string | null
+    fine?: FloatFilter<"Borrowing"> | number
     status?: EnumBorrowingStatusFilter<"Borrowing"> | $Enums.BorrowingStatus
     createdAt?: DateTimeFilter<"Borrowing"> | Date | string
     updatedAt?: DateTimeFilter<"Borrowing"> | Date | string
@@ -12954,12 +13005,15 @@ export namespace Prisma {
     borrowDate?: SortOrder
     dueDate?: SortOrder
     returnDate?: SortOrderInput | SortOrder
+    fine?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: BorrowingCountOrderByAggregateInput
+    _avg?: BorrowingAvgOrderByAggregateInput
     _max?: BorrowingMaxOrderByAggregateInput
     _min?: BorrowingMinOrderByAggregateInput
+    _sum?: BorrowingSumOrderByAggregateInput
   }
 
   export type BorrowingScalarWhereWithAggregatesInput = {
@@ -12972,6 +13026,7 @@ export namespace Prisma {
     borrowDate?: DateTimeWithAggregatesFilter<"Borrowing"> | Date | string
     dueDate?: DateTimeWithAggregatesFilter<"Borrowing"> | Date | string
     returnDate?: DateTimeNullableWithAggregatesFilter<"Borrowing"> | Date | string | null
+    fine?: FloatWithAggregatesFilter<"Borrowing"> | number
     status?: EnumBorrowingStatusWithAggregatesFilter<"Borrowing"> | $Enums.BorrowingStatus
     createdAt?: DateTimeWithAggregatesFilter<"Borrowing"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Borrowing"> | Date | string
@@ -13685,6 +13740,7 @@ export namespace Prisma {
     borrowDate?: Date | string
     dueDate: Date | string
     returnDate?: Date | string | null
+    fine?: number
     status?: $Enums.BorrowingStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13699,6 +13755,7 @@ export namespace Prisma {
     borrowDate?: Date | string
     dueDate: Date | string
     returnDate?: Date | string | null
+    fine?: number
     status?: $Enums.BorrowingStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13709,6 +13766,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFieldUpdateOperationsInput | Date | string
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fine?: FloatFieldUpdateOperationsInput | number
     status?: EnumBorrowingStatusFieldUpdateOperationsInput | $Enums.BorrowingStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13723,6 +13781,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFieldUpdateOperationsInput | Date | string
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fine?: FloatFieldUpdateOperationsInput | number
     status?: EnumBorrowingStatusFieldUpdateOperationsInput | $Enums.BorrowingStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13735,6 +13794,7 @@ export namespace Prisma {
     borrowDate?: Date | string
     dueDate: Date | string
     returnDate?: Date | string | null
+    fine?: number
     status?: $Enums.BorrowingStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13745,6 +13805,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFieldUpdateOperationsInput | Date | string
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fine?: FloatFieldUpdateOperationsInput | number
     status?: EnumBorrowingStatusFieldUpdateOperationsInput | $Enums.BorrowingStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13757,6 +13818,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFieldUpdateOperationsInput | Date | string
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fine?: FloatFieldUpdateOperationsInput | number
     status?: EnumBorrowingStatusFieldUpdateOperationsInput | $Enums.BorrowingStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14455,6 +14517,17 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type EnumBorrowingStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.BorrowingStatus | EnumBorrowingStatusFieldRefInput<$PrismaModel>
     in?: $Enums.BorrowingStatus[] | ListEnumBorrowingStatusFieldRefInput<$PrismaModel>
@@ -14474,9 +14547,14 @@ export namespace Prisma {
     borrowDate?: SortOrder
     dueDate?: SortOrder
     returnDate?: SortOrder
+    fine?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type BorrowingAvgOrderByAggregateInput = {
+    fine?: SortOrder
   }
 
   export type BorrowingMaxOrderByAggregateInput = {
@@ -14486,6 +14564,7 @@ export namespace Prisma {
     borrowDate?: SortOrder
     dueDate?: SortOrder
     returnDate?: SortOrder
+    fine?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14498,9 +14577,30 @@ export namespace Prisma {
     borrowDate?: SortOrder
     dueDate?: SortOrder
     returnDate?: SortOrder
+    fine?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type BorrowingSumOrderByAggregateInput = {
+    fine?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type EnumBorrowingStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -14614,17 +14714,6 @@ export namespace Prisma {
     _max?: NestedEnumMembershipStatusFilter<$PrismaModel>
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type EnumPaymentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
@@ -14682,22 +14771,6 @@ export namespace Prisma {
 
   export type PaymentSumOrderByAggregateInput = {
     amount?: SortOrder
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -15052,6 +15125,14 @@ export namespace Prisma {
     connect?: BookWhereUniqueInput
   }
 
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type EnumBorrowingStatusFieldUpdateOperationsInput = {
     set?: $Enums.BorrowingStatus
   }
@@ -15188,14 +15269,6 @@ export namespace Prisma {
     create?: XOR<MembershipCreateWithoutPaymentsInput, MembershipUncheckedCreateWithoutPaymentsInput>
     connectOrCreate?: MembershipCreateOrConnectWithoutPaymentsInput
     connect?: MembershipWhereUniqueInput
-  }
-
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type EnumPaymentStatusFieldUpdateOperationsInput = {
@@ -15428,11 +15501,38 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumBorrowingStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.BorrowingStatus | EnumBorrowingStatusFieldRefInput<$PrismaModel>
     in?: $Enums.BorrowingStatus[] | ListEnumBorrowingStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.BorrowingStatus[] | ListEnumBorrowingStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumBorrowingStatusFilter<$PrismaModel> | $Enums.BorrowingStatus
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedEnumBorrowingStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -15479,38 +15579,11 @@ export namespace Prisma {
     _max?: NestedEnumMembershipStatusFilter<$PrismaModel>
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
-  }
-
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -15664,6 +15737,7 @@ export namespace Prisma {
     borrowDate?: Date | string
     dueDate: Date | string
     returnDate?: Date | string | null
+    fine?: number
     status?: $Enums.BorrowingStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15676,6 +15750,7 @@ export namespace Prisma {
     borrowDate?: Date | string
     dueDate: Date | string
     returnDate?: Date | string | null
+    fine?: number
     status?: $Enums.BorrowingStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15844,6 +15919,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFilter<"Borrowing"> | Date | string
     dueDate?: DateTimeFilter<"Borrowing"> | Date | string
     returnDate?: DateTimeNullableFilter<"Borrowing"> | Date | string | null
+    fine?: FloatFilter<"Borrowing"> | number
     status?: EnumBorrowingStatusFilter<"Borrowing"> | $Enums.BorrowingStatus
     createdAt?: DateTimeFilter<"Borrowing"> | Date | string
     updatedAt?: DateTimeFilter<"Borrowing"> | Date | string
@@ -16059,6 +16135,7 @@ export namespace Prisma {
     borrowDate?: Date | string
     dueDate: Date | string
     returnDate?: Date | string | null
+    fine?: number
     status?: $Enums.BorrowingStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16071,6 +16148,7 @@ export namespace Prisma {
     borrowDate?: Date | string
     dueDate: Date | string
     returnDate?: Date | string | null
+    fine?: number
     status?: $Enums.BorrowingStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16725,6 +16803,7 @@ export namespace Prisma {
     borrowDate?: Date | string
     dueDate: Date | string
     returnDate?: Date | string | null
+    fine?: number
     status?: $Enums.BorrowingStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16878,6 +16957,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFieldUpdateOperationsInput | Date | string
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fine?: FloatFieldUpdateOperationsInput | number
     status?: EnumBorrowingStatusFieldUpdateOperationsInput | $Enums.BorrowingStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16890,6 +16970,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFieldUpdateOperationsInput | Date | string
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fine?: FloatFieldUpdateOperationsInput | number
     status?: EnumBorrowingStatusFieldUpdateOperationsInput | $Enums.BorrowingStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16901,6 +16982,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFieldUpdateOperationsInput | Date | string
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fine?: FloatFieldUpdateOperationsInput | number
     status?: EnumBorrowingStatusFieldUpdateOperationsInput | $Enums.BorrowingStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16912,6 +16994,7 @@ export namespace Prisma {
     borrowDate?: Date | string
     dueDate: Date | string
     returnDate?: Date | string | null
+    fine?: number
     status?: $Enums.BorrowingStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16922,6 +17005,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFieldUpdateOperationsInput | Date | string
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fine?: FloatFieldUpdateOperationsInput | number
     status?: EnumBorrowingStatusFieldUpdateOperationsInput | $Enums.BorrowingStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16934,6 +17018,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFieldUpdateOperationsInput | Date | string
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fine?: FloatFieldUpdateOperationsInput | number
     status?: EnumBorrowingStatusFieldUpdateOperationsInput | $Enums.BorrowingStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16945,6 +17030,7 @@ export namespace Prisma {
     borrowDate?: DateTimeFieldUpdateOperationsInput | Date | string
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fine?: FloatFieldUpdateOperationsInput | number
     status?: EnumBorrowingStatusFieldUpdateOperationsInput | $Enums.BorrowingStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
