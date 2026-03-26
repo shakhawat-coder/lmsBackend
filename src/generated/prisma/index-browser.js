@@ -208,13 +208,24 @@ exports.Prisma.CategoryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MembershipPlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  price: 'price',
+  borrowLimit: 'borrowLimit',
+  durationDays: 'durationDays',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.MembershipScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  type: 'type',
+  membershipPlanId: 'membershipPlanId',
   status: 'status',
   startDate: 'startDate',
   endDate: 'endDate',
+  price: 'price',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -263,7 +274,7 @@ exports.BorrowingStatus = exports.$Enums.BorrowingStatus = {
   OVERDUE: 'OVERDUE'
 };
 
-exports.MembershipType = exports.$Enums.MembershipType = {
+exports.MembershipPlanName = exports.$Enums.MembershipPlanName = {
   BASIC: 'BASIC',
   SILVER: 'SILVER',
   GOLD: 'GOLD'
@@ -288,6 +299,7 @@ exports.Prisma.ModelName = {
   Book: 'Book',
   Borrowing: 'Borrowing',
   Category: 'Category',
+  MembershipPlan: 'MembershipPlan',
   Membership: 'Membership',
   Payment: 'Payment'
 };
