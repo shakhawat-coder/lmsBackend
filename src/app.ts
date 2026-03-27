@@ -1,10 +1,12 @@
 import express, { Application, Request, Response } from "express";
 import { auth } from "./app/lib/auth";
 import { toNodeHandler } from "better-auth/node";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import { IndexRoutes } from "./app/routes";
 
 const app: Application = express();
+app.use(cookieParser());
 app.use(
   cors({
     origin: [
@@ -30,7 +32,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
-// app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 // Basic route
 app.get("/", (req: Request, res: Response) => {
