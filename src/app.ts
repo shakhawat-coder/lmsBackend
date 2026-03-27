@@ -18,7 +18,12 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
-app.use("/api/auth", toNodeHandler(auth));
+app.use("/api/auth", (req, res, next) => {
+  if (!req.headers.origin) {
+    req.headers.origin = process.env.BETTER_AUTH_URL || "http://localhost:5000";
+  }
+  next();
+}, toNodeHandler(auth));
 
 // Enable URL-encoded form data parsing
 app.use(express.urlencoded({ extended: true }));

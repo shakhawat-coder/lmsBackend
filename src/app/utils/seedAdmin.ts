@@ -7,7 +7,7 @@ async function seedAdmin() {
     const name = process.env.SUPER_ADMIN_NAME || "Super Admin";
     const email = process.env.SUPER_ADMIN_EMAIL || "admin@example.com";
     const password = process.env.SUPER_ADMIN_PASSWORD || "Admin@12345";
-    
+
 
     // Check if superadmin already exists
     const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -16,9 +16,12 @@ async function seedAdmin() {
       return;
     }
 
-    // Use auth.api directly (no HTTP call → no origin check)
+    // Use auth.api directly (pass an origin to satisfy CSRF checks)
     const result = await auth.api.signUpEmail({
       body: { name, email, password },
+      headers: new Headers({
+        Origin: process.env.BETTER_AUTH_URL || "http://localhost:5000",
+      }),
     });
 
     if (!result?.user) {

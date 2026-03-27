@@ -23,6 +23,7 @@ const getAllUsers = async () => {
       email: true,
       role: true,
       status: true,
+      emailVerified: true,
       phoneNumber: true,
       address: true,
       createdAt: true,
@@ -65,10 +66,22 @@ const createAdmin = async (data: {
     throw new Error(`User with email '${data.email}' already exists`);
   }
 
-  const result = await auth.api.signUpEmail({ body: data });
-  if (!result?.user) {
-    throw new Error("Failed to create admin account");
+  const result: any = await auth.api.signUpEmail({
+    body: data,
+    headers: new Headers({
+      Origin: process.env.BETTER_AUTH_URL || "http://localhost:5000",
+    }),
+  }).catch((err) => {
+    console.error("Critical error in Better Auth signUpEmail call:", err);
+    throw err;
+  });
+
+  if (!result || result.error) {
+    console.error("Better Auth Sign-up Error Body:", result?.error);
+    throw new Error(result?.error?.message || "Internal sign-up failed");
   }
+
+  console.log("Better Auth Result:", JSON.stringify(result, null, 2));
 
   // Promote to ADMIN
   const admin = await prisma.user.update({
