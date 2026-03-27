@@ -4,7 +4,18 @@ import { apiError, apiResponse } from "../../app/utils/apiResponse";
 
 const createCategory = async (req: Request, res: Response) => {
   try {
-    const result = await CategoryService.createCategory(req.body);
+    let data;
+    if (req.body.data) {
+      data = JSON.parse(req.body.data);
+    } else {
+      data = req.body;
+    }
+
+    if (req.file) {
+      data.image = req.file.path;
+    }
+
+    const result = await CategoryService.createCategory(data);
     apiResponse(res, 201, "Category created successfully", result);
   } catch (err: any) {
     apiError(res, 500, err.message || "Failed to create category", err);

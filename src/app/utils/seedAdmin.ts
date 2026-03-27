@@ -1,56 +1,50 @@
 import "dotenv/config";
 import { prisma } from "../lib/prisma";
+import { auth } from "../lib/auth";
 
 async function seedAdmin() {
   try {
-    const adminData = {
-      name: process.env.SUPER_ADMIN_NAME || "Admin",
-      email: process.env.SUPER_ADMIN_EMAIL || "admin@example.com",
-      password: process.env.SUPER_ADMIN_PASSWORD || "password",
-      role: "SUPERADMIN",
-      emailVerified: true,
-    };
+    const name = process.env.SUPER_ADMIN_NAME || "Super Admin";
+    const email = process.env.SUPER_ADMIN_EMAIL || "admin@example.com";
+    const password = process.env.SUPER_ADMIN_PASSWORD || "Admin@12345";
+    
 
-    const existingUser = await prisma.user.findUnique({
-      where: {
-        email: adminData.email,
-      },
-    });
+    // Check if superadmin already exists
+    const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
-      console.log("Admin user already exists");
+      console.log("✅ Superadmin already exists:", existingUser.email);
       return;
     }
 
-    const sigUpAdmin = await fetch(
-      `${process.env.BETTER_AUTH_URL}/api/auth/sign-up/email`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Origin: process.env.FRONTEND_URL || "http://localhost:3000",
-        },
-        body: JSON.stringify(adminData),
-      },
-    );
+    // Use auth.api directly (no HTTP call → no origin check)
+    const result = await auth.api.signUpEmail({
+      body: { name, email, password },
+    });
 
-    if (!sigUpAdmin.ok) {
-      const errorData = await sigUpAdmin.text();
-      console.error(
-        `Sign-up failed with status ${sigUpAdmin.status}:`,
-        errorData,
-      );
-      throw new Error(`Sign-up failed: ${sigUpAdmin.statusText}`);
+    if (!result?.user) {
+      throw new Error("Sign-up did not return a user.");
     }
 
-    const admin = await sigUpAdmin.json();
-    console.log("Admin user created successfully:", admin);
+    // Promote to SUPERADMIN and verify email
+    const superAdmin = await prisma.user.update({
+      where: { id: result.user.id },
+      data: {
+        role: "SUPERADMIN",
+        emailVerified: true,
+      },
+    });
+
+    console.log("🎉 Superadmin created successfully:");
+    console.log("   Name          :", superAdmin.name);
+    console.log("   Email         :", superAdmin.email);
+    console.log("   Role          :", superAdmin.role);
+    console.log("   Email Verified:", superAdmin.emailVerified);
   } catch (error) {
-    console.error("seedAdmin error:", error);
+    console.error("❌ seedAdmin error:", error);
     throw error;
   }
 }
 
-// Execute the seeding when this script is run
 seedAdmin()
   .then(() => console.log("seedAdmin finished"))
   .catch((err) => {

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import app from "./app";
 import { prisma } from "./app/lib/prisma";
 // import { seedSuperAdmin } from "./app/utils/seed";

@@ -33,4 +33,14 @@ app.get("/", (req: Request, res: Response) => {
 });
 app.use("/api/v1", IndexRoutes);
 
+// Global Error Handler
+app.use((err: any, req: Request, res: Response, next: express.NextFunction) => {
+  console.error(err);
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || "Internal Server Error",
+    error: err
+  });
+});
+
 export default app;

@@ -1,4 +1,5 @@
 import { prisma } from "../../app/lib/prisma";
+import { auth } from "../../app/lib/auth";
 
 export type IUser = {
   name: string;
@@ -53,8 +54,42 @@ const softDeleteUser = async (id: string) => {
   return result;
 };
 
+const createAdmin = async (data: {
+  name: string;
+  email: string;
+  password: string;
+}) => {
+  // Check duplicate before calling auth
+  const existing = await prisma.user.findUnique({ where: { email: data.email } });
+  if (existing) {
+    throw new Error(`User with email '${data.email}' already exists`);
+  }
+
+  const result = await auth.api.signUpEmail({ body: data });
+  if (!result?.user) {
+    throw new Error("Failed to create admin account");
+  }
+
+  // Promote to ADMIN
+  const admin = await prisma.user.update({
+    where: { id: result.user.id },
+    data: { role: "ADMIN" },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      status: true,
+      createdAt: true,
+    },
+  });
+
+  return admin;
+};
+
 export const UserService = {
   getAllUsers,
   updateUser,
   softDeleteUser,
+  createAdmin,
 };

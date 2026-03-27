@@ -4,7 +4,20 @@ import { apiError, apiResponse } from "../../app/utils/apiResponse";
 
 const createBook = async (req: Request, res: Response) => {
   try {
-    const result = await BookService.createBook(req.body);
+    let data;
+    if (req.body.data) {
+      data = JSON.parse(req.body.data);
+    } else {
+      data = req.body;
+      if (typeof data.pages === "string") data.pages = parseInt(data.pages, 10);
+      if (typeof data.availability === "string") data.availability = data.availability === "true";
+    }
+
+    if (req.file) {
+      data.coverImage = req.file.path;
+    }
+
+    const result = await BookService.createBook(data);
     apiResponse(res, 201, "Book created successfully", result);
   } catch (err: any) {
     apiError(res, 500, err.message || "Failed to create book", err);

@@ -31,8 +31,19 @@ const softDeleteUser = async (req: Request, res: Response) => {
   }
 };
 
+const createAdmin = async (req: Request, res: Response) => {
+  try {
+    const result = await UserService.createAdmin(req.body);
+    apiResponse(res, 201, "Admin created successfully", result);
+  } catch (err: any) {
+    const status = err.message?.includes("already exists") ? 409 : 500;
+    apiError(res, status, err.message || "Failed to create admin", err);
+  }
+};
+
 export const UserController = {
   getAllUsers,
   updateUser,
   softDeleteUser,
+  createAdmin,
 };

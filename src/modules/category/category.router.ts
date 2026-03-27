@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { CategoryController } from "./category.controller";
+import { upload } from "../../app/config/multer.config";
 
 const router = Router();
 
-router.post("/", CategoryController.createCategory);
+router.post("/", upload.single("image"), CategoryController.createCategory);
 router.get("/", CategoryController.getAllCategories);
 router.get("/:id", CategoryController.getSingleCategory);
 router.patch("/:id", CategoryController.updateCategory);

@@ -10,6 +10,7 @@
     "build": "tsc",
     "lint": "eslint ./src/**/*",
     "dev": "tsx watch src/server.ts",
+    "seed:admin": "npx tsx src/app/utils/seedAdmin.ts",
     "migrate": "prisma migrate dev",
     "generate": "prisma generate",
     "studio": "prisma studio",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/multer": "^2.1.0",
     "@types/node": "^25.5.0",
     "@types/pg": "^8.20.0",
     "prisma": "^7.5.0",
@@ -38,9 +40,12 @@
     "@prisma/client": "^7.5.0",
     "axios": "^1.13.6",
     "better-auth": "^1.5.6",
+    "cloudinary": "^2.9.0",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
+    "multer": "^2.1.1",
+    "multer-storage-cloudinary": "^4.0.0",
     "pg": "^8.20.0"
   }
 }
