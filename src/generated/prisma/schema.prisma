@@ -139,7 +139,10 @@ model Category {
 model MembershipPlan {
   id           String             @id @default(uuid())
   name         MembershipPlanName
+  description  String             @default("")
   price        Float
+  interval     String?
+  features     String[]
   borrowLimit  Int
   durationDays Int
   memberships  Membership[]

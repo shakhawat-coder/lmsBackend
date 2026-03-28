@@ -211,7 +211,10 @@ exports.Prisma.CategoryScalarFieldEnum = {
 exports.Prisma.MembershipPlanScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
   price: 'price',
+  interval: 'interval',
+  features: 'features',
   borrowLimit: 'borrowLimit',
   durationDays: 'durationDays',
   createdAt: 'createdAt',

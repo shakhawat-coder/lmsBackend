@@ -10019,7 +10019,9 @@ export namespace Prisma {
   export type MembershipPlanMinAggregateOutputType = {
     id: string | null
     name: $Enums.MembershipPlanName | null
+    description: string | null
     price: number | null
+    interval: string | null
     borrowLimit: number | null
     durationDays: number | null
     createdAt: Date | null
@@ -10029,7 +10031,9 @@ export namespace Prisma {
   export type MembershipPlanMaxAggregateOutputType = {
     id: string | null
     name: $Enums.MembershipPlanName | null
+    description: string | null
     price: number | null
+    interval: string | null
     borrowLimit: number | null
     durationDays: number | null
     createdAt: Date | null
@@ -10039,7 +10043,10 @@ export namespace Prisma {
   export type MembershipPlanCountAggregateOutputType = {
     id: number
     name: number
+    description: number
     price: number
+    interval: number
+    features: number
     borrowLimit: number
     durationDays: number
     createdAt: number
@@ -10063,7 +10070,9 @@ export namespace Prisma {
   export type MembershipPlanMinAggregateInputType = {
     id?: true
     name?: true
+    description?: true
     price?: true
+    interval?: true
     borrowLimit?: true
     durationDays?: true
     createdAt?: true
@@ -10073,7 +10082,9 @@ export namespace Prisma {
   export type MembershipPlanMaxAggregateInputType = {
     id?: true
     name?: true
+    description?: true
     price?: true
+    interval?: true
     borrowLimit?: true
     durationDays?: true
     createdAt?: true
@@ -10083,7 +10094,10 @@ export namespace Prisma {
   export type MembershipPlanCountAggregateInputType = {
     id?: true
     name?: true
+    description?: true
     price?: true
+    interval?: true
+    features?: true
     borrowLimit?: true
     durationDays?: true
     createdAt?: true
@@ -10180,7 +10194,10 @@ export namespace Prisma {
   export type MembershipPlanGroupByOutputType = {
     id: string
     name: $Enums.MembershipPlanName
+    description: string
     price: number
+    interval: string | null
+    features: string[]
     borrowLimit: number
     durationDays: number
     createdAt: Date
@@ -10209,7 +10226,10 @@ export namespace Prisma {
   export type MembershipPlanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
     price?: boolean
+    interval?: boolean
+    features?: boolean
     borrowLimit?: boolean
     durationDays?: boolean
     createdAt?: boolean
@@ -10221,7 +10241,10 @@ export namespace Prisma {
   export type MembershipPlanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
     price?: boolean
+    interval?: boolean
+    features?: boolean
     borrowLimit?: boolean
     durationDays?: boolean
     createdAt?: boolean
@@ -10231,7 +10254,10 @@ export namespace Prisma {
   export type MembershipPlanSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
     price?: boolean
+    interval?: boolean
+    features?: boolean
     borrowLimit?: boolean
     durationDays?: boolean
     createdAt?: boolean
@@ -10241,14 +10267,17 @@ export namespace Prisma {
   export type MembershipPlanSelectScalar = {
     id?: boolean
     name?: boolean
+    description?: boolean
     price?: boolean
+    interval?: boolean
+    features?: boolean
     borrowLimit?: boolean
     durationDays?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type MembershipPlanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "price" | "borrowLimit" | "durationDays" | "createdAt" | "updatedAt", ExtArgs["result"]["membershipPlan"]>
+  export type MembershipPlanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "interval" | "features" | "borrowLimit" | "durationDays" | "createdAt" | "updatedAt", ExtArgs["result"]["membershipPlan"]>
   export type MembershipPlanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     memberships?: boolean | MembershipPlan$membershipsArgs<ExtArgs>
     _count?: boolean | MembershipPlanCountOutputTypeDefaultArgs<ExtArgs>
@@ -10264,7 +10293,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: $Enums.MembershipPlanName
+      description: string
       price: number
+      interval: string | null
+      features: string[]
       borrowLimit: number
       durationDays: number
       createdAt: Date
@@ -10695,7 +10727,10 @@ export namespace Prisma {
   interface MembershipPlanFieldRefs {
     readonly id: FieldRef<"MembershipPlan", 'String'>
     readonly name: FieldRef<"MembershipPlan", 'MembershipPlanName'>
+    readonly description: FieldRef<"MembershipPlan", 'String'>
     readonly price: FieldRef<"MembershipPlan", 'Float'>
+    readonly interval: FieldRef<"MembershipPlan", 'String'>
+    readonly features: FieldRef<"MembershipPlan", 'String[]'>
     readonly borrowLimit: FieldRef<"MembershipPlan", 'Int'>
     readonly durationDays: FieldRef<"MembershipPlan", 'Int'>
     readonly createdAt: FieldRef<"MembershipPlan", 'DateTime'>
@@ -13637,7 +13672,10 @@ export namespace Prisma {
   export const MembershipPlanScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    description: 'description',
     price: 'price',
+    interval: 'interval',
+    features: 'features',
     borrowLimit: 'borrowLimit',
     durationDays: 'durationDays',
     createdAt: 'createdAt',
@@ -14427,7 +14465,10 @@ export namespace Prisma {
     NOT?: MembershipPlanWhereInput | MembershipPlanWhereInput[]
     id?: StringFilter<"MembershipPlan"> | string
     name?: EnumMembershipPlanNameFilter<"MembershipPlan"> | $Enums.MembershipPlanName
+    description?: StringFilter<"MembershipPlan"> | string
     price?: FloatFilter<"MembershipPlan"> | number
+    interval?: StringNullableFilter<"MembershipPlan"> | string | null
+    features?: StringNullableListFilter<"MembershipPlan">
     borrowLimit?: IntFilter<"MembershipPlan"> | number
     durationDays?: IntFilter<"MembershipPlan"> | number
     createdAt?: DateTimeFilter<"MembershipPlan"> | Date | string
@@ -14438,7 +14479,10 @@ export namespace Prisma {
   export type MembershipPlanOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     price?: SortOrder
+    interval?: SortOrderInput | SortOrder
+    features?: SortOrder
     borrowLimit?: SortOrder
     durationDays?: SortOrder
     createdAt?: SortOrder
@@ -14452,7 +14496,10 @@ export namespace Prisma {
     OR?: MembershipPlanWhereInput[]
     NOT?: MembershipPlanWhereInput | MembershipPlanWhereInput[]
     name?: EnumMembershipPlanNameFilter<"MembershipPlan"> | $Enums.MembershipPlanName
+    description?: StringFilter<"MembershipPlan"> | string
     price?: FloatFilter<"MembershipPlan"> | number
+    interval?: StringNullableFilter<"MembershipPlan"> | string | null
+    features?: StringNullableListFilter<"MembershipPlan">
     borrowLimit?: IntFilter<"MembershipPlan"> | number
     durationDays?: IntFilter<"MembershipPlan"> | number
     createdAt?: DateTimeFilter<"MembershipPlan"> | Date | string
@@ -14463,7 +14510,10 @@ export namespace Prisma {
   export type MembershipPlanOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     price?: SortOrder
+    interval?: SortOrderInput | SortOrder
+    features?: SortOrder
     borrowLimit?: SortOrder
     durationDays?: SortOrder
     createdAt?: SortOrder
@@ -14481,7 +14531,10 @@ export namespace Prisma {
     NOT?: MembershipPlanScalarWhereWithAggregatesInput | MembershipPlanScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"MembershipPlan"> | string
     name?: EnumMembershipPlanNameWithAggregatesFilter<"MembershipPlan"> | $Enums.MembershipPlanName
+    description?: StringWithAggregatesFilter<"MembershipPlan"> | string
     price?: FloatWithAggregatesFilter<"MembershipPlan"> | number
+    interval?: StringNullableWithAggregatesFilter<"MembershipPlan"> | string | null
+    features?: StringNullableListFilter<"MembershipPlan">
     borrowLimit?: IntWithAggregatesFilter<"MembershipPlan"> | number
     durationDays?: IntWithAggregatesFilter<"MembershipPlan"> | number
     createdAt?: DateTimeWithAggregatesFilter<"MembershipPlan"> | Date | string
@@ -15298,7 +15351,10 @@ export namespace Prisma {
   export type MembershipPlanCreateInput = {
     id?: string
     name: $Enums.MembershipPlanName
+    description?: string
     price: number
+    interval?: string | null
+    features?: MembershipPlanCreatefeaturesInput | string[]
     borrowLimit: number
     durationDays: number
     createdAt?: Date | string
@@ -15309,7 +15365,10 @@ export namespace Prisma {
   export type MembershipPlanUncheckedCreateInput = {
     id?: string
     name: $Enums.MembershipPlanName
+    description?: string
     price: number
+    interval?: string | null
+    features?: MembershipPlanCreatefeaturesInput | string[]
     borrowLimit: number
     durationDays: number
     createdAt?: Date | string
@@ -15320,7 +15379,10 @@ export namespace Prisma {
   export type MembershipPlanUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: EnumMembershipPlanNameFieldUpdateOperationsInput | $Enums.MembershipPlanName
+    description?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
+    interval?: NullableStringFieldUpdateOperationsInput | string | null
+    features?: MembershipPlanUpdatefeaturesInput | string[]
     borrowLimit?: IntFieldUpdateOperationsInput | number
     durationDays?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15331,7 +15393,10 @@ export namespace Prisma {
   export type MembershipPlanUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: EnumMembershipPlanNameFieldUpdateOperationsInput | $Enums.MembershipPlanName
+    description?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
+    interval?: NullableStringFieldUpdateOperationsInput | string | null
+    features?: MembershipPlanUpdatefeaturesInput | string[]
     borrowLimit?: IntFieldUpdateOperationsInput | number
     durationDays?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15342,7 +15407,10 @@ export namespace Prisma {
   export type MembershipPlanCreateManyInput = {
     id?: string
     name: $Enums.MembershipPlanName
+    description?: string
     price: number
+    interval?: string | null
+    features?: MembershipPlanCreatefeaturesInput | string[]
     borrowLimit: number
     durationDays: number
     createdAt?: Date | string
@@ -15352,7 +15420,10 @@ export namespace Prisma {
   export type MembershipPlanUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: EnumMembershipPlanNameFieldUpdateOperationsInput | $Enums.MembershipPlanName
+    description?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
+    interval?: NullableStringFieldUpdateOperationsInput | string | null
+    features?: MembershipPlanUpdatefeaturesInput | string[]
     borrowLimit?: IntFieldUpdateOperationsInput | number
     durationDays?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15362,7 +15433,10 @@ export namespace Prisma {
   export type MembershipPlanUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: EnumMembershipPlanNameFieldUpdateOperationsInput | $Enums.MembershipPlanName
+    description?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
+    interval?: NullableStringFieldUpdateOperationsInput | string | null
+    features?: MembershipPlanUpdatefeaturesInput | string[]
     borrowLimit?: IntFieldUpdateOperationsInput | number
     durationDays?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16145,6 +16219,14 @@ export namespace Prisma {
     not?: NestedEnumMembershipPlanNameFilter<$PrismaModel> | $Enums.MembershipPlanName
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -16159,7 +16241,10 @@ export namespace Prisma {
   export type MembershipPlanCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     price?: SortOrder
+    interval?: SortOrder
+    features?: SortOrder
     borrowLimit?: SortOrder
     durationDays?: SortOrder
     createdAt?: SortOrder
@@ -16175,7 +16260,9 @@ export namespace Prisma {
   export type MembershipPlanMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     price?: SortOrder
+    interval?: SortOrder
     borrowLimit?: SortOrder
     durationDays?: SortOrder
     createdAt?: SortOrder
@@ -16185,7 +16272,9 @@ export namespace Prisma {
   export type MembershipPlanMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     price?: SortOrder
+    interval?: SortOrder
     borrowLimit?: SortOrder
     durationDays?: SortOrder
     createdAt?: SortOrder
@@ -16771,6 +16860,10 @@ export namespace Prisma {
     deleteMany?: BookScalarWhereInput | BookScalarWhereInput[]
   }
 
+  export type MembershipPlanCreatefeaturesInput = {
+    set: string[]
+  }
+
   export type MembershipCreateNestedManyWithoutMembershipPlanInput = {
     create?: XOR<MembershipCreateWithoutMembershipPlanInput, MembershipUncheckedCreateWithoutMembershipPlanInput> | MembershipCreateWithoutMembershipPlanInput[] | MembershipUncheckedCreateWithoutMembershipPlanInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutMembershipPlanInput | MembershipCreateOrConnectWithoutMembershipPlanInput[]
@@ -16787,6 +16880,11 @@ export namespace Prisma {
 
   export type EnumMembershipPlanNameFieldUpdateOperationsInput = {
     set?: $Enums.MembershipPlanName
+  }
+
+  export type MembershipPlanUpdatefeaturesInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -18211,7 +18309,10 @@ export namespace Prisma {
   export type MembershipPlanCreateWithoutMembershipsInput = {
     id?: string
     name: $Enums.MembershipPlanName
+    description?: string
     price: number
+    interval?: string | null
+    features?: MembershipPlanCreatefeaturesInput | string[]
     borrowLimit: number
     durationDays: number
     createdAt?: Date | string
@@ -18221,7 +18322,10 @@ export namespace Prisma {
   export type MembershipPlanUncheckedCreateWithoutMembershipsInput = {
     id?: string
     name: $Enums.MembershipPlanName
+    description?: string
     price: number
+    interval?: string | null
+    features?: MembershipPlanCreatefeaturesInput | string[]
     borrowLimit: number
     durationDays: number
     createdAt?: Date | string
@@ -18330,7 +18434,10 @@ export namespace Prisma {
   export type MembershipPlanUpdateWithoutMembershipsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: EnumMembershipPlanNameFieldUpdateOperationsInput | $Enums.MembershipPlanName
+    description?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
+    interval?: NullableStringFieldUpdateOperationsInput | string | null
+    features?: MembershipPlanUpdatefeaturesInput | string[]
     borrowLimit?: IntFieldUpdateOperationsInput | number
     durationDays?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18340,7 +18447,10 @@ export namespace Prisma {
   export type MembershipPlanUncheckedUpdateWithoutMembershipsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: EnumMembershipPlanNameFieldUpdateOperationsInput | $Enums.MembershipPlanName
+    description?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
+    interval?: NullableStringFieldUpdateOperationsInput | string | null
+    features?: MembershipPlanUpdatefeaturesInput | string[]
     borrowLimit?: IntFieldUpdateOperationsInput | number
     durationDays?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

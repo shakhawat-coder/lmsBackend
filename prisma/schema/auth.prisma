@@ -1,21 +1,21 @@
 model User {
-  id            String      @id
+  id            String       @id
   name          String
   email         String
-  emailVerified Boolean     @default(false)
+  emailVerified Boolean      @default(false)
   image         String?
-  role          ROLE        @default(USER)
-  status        USER_STATUS @default(ACTIVE)
+  role          ROLE         @default(USER)
+  status        USER_STATUS  @default(ACTIVE)
   phoneNumber   String?
   address       String?
-  isDeleted     Boolean     @default(false)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  sessions    Session[]
-  accounts    Account[]
-  memberships Membership[]
-  payments    Payment[]
-  borrowings  Borrowing[]
+  isDeleted     Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  memberships   Membership[]
+  payments      Payment[]
+  borrowings    Borrowing[]
 
   @@unique([email])
   @@map("user")

@@ -4,9 +4,24 @@ import { apiError, apiResponse } from "../../app/utils/apiResponse";
 
 const createBorrowing = async (req: Request, res: Response) => {
   try {
-    const result = await BorrowingService.createBorrowing(req.body);
+    const userId = req.user?.id;
+    if (!userId) {
+      return apiError(res, 401, "Unauthorized");
+    }
+
+    // Default dueDate if not provided (e.g. 14 days from now)
+    const dueDate = req.body.dueDate || new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString();
+
+    const result = await BorrowingService.createBorrowing({
+      userId,
+      ...req.body,
+      dueDate
+    });
     apiResponse(res, 201, "Book borrowed successfully", result);
   } catch (err: any) {
+    if (err.message === "ACTIVE_MEMBERSHIP_REQUIRED") {
+      return apiError(res, 403, "You must have an active membership to borrow books.");
+    }
     apiError(res, 500, err.message || "Failed to borrow book", err);
   }
 };

@@ -9,6 +9,24 @@ export type IBorrowing = {
 };
 
 const createBorrowing = async (data: IBorrowing) => {
+  // Check if user has an active membership
+  const activeMembership = await prisma.membership.findFirst({
+    where: {
+      userId: data.userId,
+      status: "ACTIVE",
+    },
+  });
+
+  if (!activeMembership) {
+    throw new Error("ACTIVE_MEMBERSHIP_REQUIRED");
+  }
+
+  // Check if book is available
+  const book = await prisma.book.findUnique({ where: { id: data.bookId }});
+  if (!book || !book.availability) {
+    throw new Error("Book is not available for borrowing");
+  }
+
   await prisma.book.update({
     where: { id: data.bookId },
     data: { availability: false },

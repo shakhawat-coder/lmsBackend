@@ -1,8 +1,11 @@
 import { prisma } from "../../app/lib/prisma";
 
 export type IMembershipPlan = {
-  name: "BASIC" | "SILVER" | "GOLD";
+  name: "BASIC" | "SILVER" | "GOLD"; 
+  description: string;
   price: number;
+  interval?: string;
+  features: string[];
   borrowLimit: number;
   durationDays: number;
 };
