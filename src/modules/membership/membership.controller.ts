@@ -63,6 +63,20 @@ const deleteMembership = async (req: Request, res: Response) => {
   }
 };
 
+const getMyMembership = async (req: Request, res: Response) => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return apiError(res, 401, "Unauthorized");
+    }
+    const result = await MembershipService.getMembershipByUser(userId);
+    // Return the latest one if it exists
+    apiResponse(res, 200, "My membership fetched successfully", result[0] || null);
+  } catch (err: any) {
+    apiError(res, 500, err.message || "Failed to fetch my membership", err);
+  }
+};
+
 export const MembershipController = {
   createMembership,
   getAllMemberships,
@@ -70,4 +84,5 @@ export const MembershipController = {
   getMembershipByUser,
   updateMembership,
   deleteMembership,
+  getMyMembership,
 };

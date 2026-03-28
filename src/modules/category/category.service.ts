@@ -40,6 +40,16 @@ const updateCategory = async (id: string, data: Partial<{ name: string; image: s
 };
 
 const deleteCategory = async (id: string) => {
+  const booksCount = await prisma.book.count({
+    where: {
+      categoryId: id,
+    },
+  });
+
+  if (booksCount > 0) {
+    throw new Error("Cannot delete a category that has books. Remove all associated books first.");
+  }
+
   const result = await prisma.category.delete({
     where: {
       id,

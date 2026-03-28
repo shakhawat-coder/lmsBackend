@@ -49,7 +49,19 @@ const getSingleBook = async (req: Request, res: Response) => {
 const updateBook = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const result = await BookService.updateBook(id as string, req.body);
+    let data;
+    if (req.body.data) {
+      data = JSON.parse(req.body.data);
+    } else {
+      data = req.body;
+      if (typeof data.pages === "string") data.pages = parseInt(data.pages, 10);
+    }
+
+    if (req.file) {
+      data.coverImage = req.file.path;
+    }
+
+    const result = await BookService.updateBook(id as string, data);
     apiResponse(res, 200, "Book updated successfully", result);
   } catch (err: any) {
     apiError(res, 500, err.message || "Failed to update book", err);

@@ -66,6 +66,19 @@ const deleteBorrowing = async (req: Request, res: Response) => {
   }
 };
 
+const getMyBorrowings = async (req: Request, res: Response) => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return apiError(res, 401, "Unauthorized");
+    }
+    const result = await BorrowingService.getMyBorrowings(userId);
+    apiResponse(res, 200, "My borrowings fetched successfully", result);
+  } catch (err: any) {
+    apiError(res, 500, err.message || "Failed to fetch my borrowings", err);
+  }
+};
+
 export const BorrowingController = {
   createBorrowing,
   getAllBorrowings,
@@ -73,4 +86,5 @@ export const BorrowingController = {
   returnBook,
   updateBorrowing,
   deleteBorrowing,
+  getMyBorrowings,
 };

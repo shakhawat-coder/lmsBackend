@@ -170,6 +170,23 @@ const deleteBorrowing = async (id: string) => {
   return result;
 };
 
+const getMyBorrowings = async (userId: string) => {
+  const result = await prisma.borrowing.findMany({
+    where: { userId },
+    include: {
+      book: {
+        include: {
+          category: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return result;
+};
+
 export const BorrowingService = {
   createBorrowing,
   getAllBorrowings,
@@ -177,4 +194,5 @@ export const BorrowingService = {
   returnBook,
   updateBorrowing,
   deleteBorrowing,
+  getMyBorrowings,
 };

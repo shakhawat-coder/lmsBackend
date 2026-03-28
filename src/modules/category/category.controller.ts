@@ -47,7 +47,18 @@ const getSingleCategory = async (req: Request, res: Response) => {
 const updateCategory = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const result = await CategoryService.updateCategory(id as string, req.body);
+    let data;
+    if (req.body.data) {
+      data = JSON.parse(req.body.data);
+    } else {
+      data = req.body;
+    }
+
+    if (req.file) {
+      data.image = req.file.path;
+    }
+
+    const result = await CategoryService.updateCategory(id as string, data);
     apiResponse(res, 200, "Category updated successfully", result);
   } catch (err: any) {
     apiError(res, 500, err.message || "Failed to update category", err);
