@@ -14,7 +14,18 @@ const getAllUsers = async (req: Request, res: Response) => {
 const updateUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const result = await UserService.updateUser(id as string, req.body);
+    let data;
+    if (req.body.data) {
+      data = JSON.parse(req.body.data);
+    } else {
+      data = req.body;
+    }
+
+    if (req.file) {
+      data.image = req.file.path;
+    }
+
+    const result = await UserService.updateUser(id as string, data);
     apiResponse(res, 200, "User updated successfully", result);
   } catch (err: any) {
     apiError(res, 500, err.message || "Failed to update user", err);

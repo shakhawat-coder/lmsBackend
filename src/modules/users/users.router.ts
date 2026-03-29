@@ -1,6 +1,7 @@
 import express from "express";
 import { UserController } from "./users.controller";
 import { authMiddleware, authorizeRoles } from "../../app/middlewares/authMiddleware";
+import { upload } from "../../app/config/multer.config";
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.post(
 
 // ADMIN + SUPERADMIN: manage users
 router.get("/", authorizeRoles("ADMIN", "SUPERADMIN"), UserController.getAllUsers);
-router.patch("/:id", authorizeRoles("ADMIN", "SUPERADMIN"), UserController.updateUser);
+router.patch("/:id", authorizeRoles("ADMIN", "SUPERADMIN", "USER"), upload.single("image"), UserController.updateUser);
 router.delete("/:id", authorizeRoles("ADMIN", "SUPERADMIN"), UserController.softDeleteUser);
 
 export const UserRouter = router;

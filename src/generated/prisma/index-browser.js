@@ -208,6 +208,16 @@ exports.Prisma.CategoryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ContactMessageScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  subject: 'subject',
+  message: 'message',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.MembershipPlanScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -302,6 +312,7 @@ exports.Prisma.ModelName = {
   Book: 'Book',
   Borrowing: 'Borrowing',
   Category: 'Category',
+  ContactMessage: 'ContactMessage',
   MembershipPlan: 'MembershipPlan',
   Membership: 'Membership',
   Payment: 'Payment'

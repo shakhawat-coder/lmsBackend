@@ -6,6 +6,7 @@ import { borrowingRouter } from "../../modules/borrowing/borrowing.router";
 import { membershipRouter } from "../../modules/membership/membership.router";
 import { membershipPlanRouter } from "../../modules/membership-plan/membership-plan.router";
 import { paymentRouter } from "../../modules/payment/payment.router";
+import { contactRouter } from "../../modules/contact/contact.router";
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use("/borrowings", borrowingRouter);
 router.use("/memberships", membershipRouter);
 router.use("/membership-plans", membershipPlanRouter);
 router.use("/payments", paymentRouter);
+router.use("/contact", contactRouter);
 
 export const IndexRoutes = router;
